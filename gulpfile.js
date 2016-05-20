@@ -25,6 +25,7 @@ gulp.task('sass-prefix',['sass'],function() {
 });
 
 gulp.task('default',function() {
+    gulp.run('babel','sass-prefix');
     gulp.watch('./src/sass/*.scss',['sass-prefix']);
     gulp.watch('./src/js/*.js',['babel']);
 })
