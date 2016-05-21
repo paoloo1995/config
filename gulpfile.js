@@ -15,17 +15,16 @@ gulp.task('babel',function() {
 gulp.task('sass',function() {
     gulp.src('./src/sass/*.scss')
         .pipe(sass())
-        .pipe(gulp.dest('./dest/css'));
-});
-
-gulp.task('sass-prefix',['sass'],function() {
-    gulp.src('./dest/css/*.css')
-        .pipe(prefix())
+        .pipe(prefix({
+            browsers:['last 3 versions','Android >= 4.0'],
+            cascade:true,
+            remove:true
+        }))
         .pipe(gulp.dest('./dest/css'));
 });
 
 gulp.task('default',function() {
-    gulp.run('babel','sass-prefix');
-    gulp.watch('./src/sass/*.scss',['sass-prefix']);
+    gulp.run('babel','sass');
+    gulp.watch('./src/sass/*.scss',['sass']);
     gulp.watch('./src/js/*.js',['babel']);
 })
